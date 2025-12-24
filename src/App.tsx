@@ -1,22 +1,22 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import Transactions from "./pages/Transactions";
 import Accounts from "./pages/Accounts";
 
 export default function App() {
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link>{" | "}
-        <Link to="/transactions">Transactions</Link>{" | "}
-        <Link to="/accounts">Accounts</Link>
-      </nav>
+    <>
+      <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/accounts" element={<Accounts />} />
-      </Routes>
-    </div>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/accounts" element={<Accounts />} />
+        </Routes>
+      </div>
+    </>
   );
 }
