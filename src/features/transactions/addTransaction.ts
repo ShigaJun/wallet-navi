@@ -1,0 +1,43 @@
+import { supabase } from "../../lib/supabase";
+
+type AddTransactionParams = {
+  amount: number;
+  date?: string;
+  categoryId: string;
+  paymentMethodId: string;
+  accountId: string;
+  memo?: string;
+};
+
+export async function addTransaction({
+  amount,
+  date,
+  categoryId,
+  paymentMethodId,
+  accountId,
+  memo,
+}: AddTransactionParams) {
+  const payload: {
+    amount: number;
+    date?: string;
+    category_id: string;
+    payment_method_id: string;
+    account_id: string;
+    memo: string | null;
+  } = {
+    amount,
+    category_id: categoryId,
+    payment_method_id: paymentMethodId,
+    account_id: accountId,
+    memo: memo || null,
+  };
+  if (date) {
+    payload.date = date;
+  }
+
+  const { error } = await supabase.from("transactions").insert([payload]);
+  
+  if (error) {
+    throw error;
+  }
+}
