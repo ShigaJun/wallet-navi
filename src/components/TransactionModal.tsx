@@ -1,5 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addTransaction } from "../features/transactions/addTransaction";
+
+import type { Category } from "../features/categories/types";
+import { fetchCategories } from "../features/categories/fetchCategories";
+import type { PaymentMethod } from "../features/payment_methods/types";
+import { fetchPaymentMethods } from "../features/payment_methods/fetchPaymentMethods";
+import type { Account } from "../features/accounts/types";
+import { fetchAccounts } from "../features/accounts/fetchAccounts";
 
 type TransactionModalProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +21,37 @@ export default function TransactionModal({ setIsOpen }: TransactionModalProps) {
   const [paymentMethodId, setPaymentMethodId] = useState("");
   const [accountId, setAccountId] = useState("");
   const [memo, setMemo] = useState("");
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
+
+  useEffect(() => {
+    fetchCategories()
+      .then(setCategories)
+      .catch((error) => {
+        console.error(error);
+        alert("カテゴリの取得に失敗しました。");
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchPaymentMethods()
+      .then(setPaymentMethods)
+      .catch((error) => {
+        console.error(error);
+        alert("支払方法の取得に失敗しました。");
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchAccounts()
+      .then(setAccounts)
+      .catch((error) => {
+        console.error(error);
+        alert("口座の取得に失敗しました。");
+      });
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -51,23 +89,41 @@ export default function TransactionModal({ setIsOpen }: TransactionModalProps) {
           onChange={(e) => setDate(e.target.value)}
         />
 
-        <input
+        <select
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
-          placeholder="カテゴリID"
-        />
+        >
+          <option value="">カテゴリを選択</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
 
-        <input
+        <select
           value={paymentMethodId}
           onChange={(e) => setPaymentMethodId(e.target.value)}
-          placeholder="支払方法ID"
-        />
+        >
+          <option value="">支払方法を選択</option>
+          {paymentMethods.map((method) => (
+            <option key={method.id} value={method.id}>
+              {method.name}
+            </option>
+          ))}
+        </select>
 
-        <input
+        <select
           value={accountId}
           onChange={(e) => setAccountId(e.target.value)}
-          placeholder="口座ID"
-        />
+        >
+          <option value="">口座を選択</option>
+          {accounts.map((account) => (
+            <option key={account.id} value={account.id}>
+              {account.name}
+            </option>
+          ))}
+        </select>
 
         <input
           value={memo}
