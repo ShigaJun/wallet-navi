@@ -4,6 +4,7 @@ import TransactionModal from "../components/TransactionModal";
 
 export default function Transactions() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <h1>Transactions</h1>
