@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { addTransaction } from "../features/transactions/addTransaction";
+import { getLocalToday } from "../utils/date";
 
 import Switch from "../components/Switch";
 
@@ -21,9 +22,7 @@ export default function TransactionModal({ setIsOpen }: TransactionModalProps) {
   const [accounts, setAccounts] = useState<Account[]>([]);
 
   const [amount, setAmount] = useState<string>("0");
-  const [date, setDate] = useState<string>(() =>
-    new Date().toISOString().slice(0, 10)
-  );
+  const [date, setDate] = useState(getLocalToday());
   const [categoryId, setCategoryId] = useState("");
   const [paymentMethodId, setPaymentMethodId] = useState("");
   const [accountId, setAccountId] = useState("");
