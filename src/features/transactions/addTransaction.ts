@@ -1,7 +1,7 @@
 import { supabase } from "../../lib/supabase";
 
 type AddTransactionParams = {
-  amount: number;
+  amount: string;
   date?: string;
   categoryId: string;
   paymentMethodId: string;
@@ -25,7 +25,7 @@ export async function addTransaction({
     account_id: string;
     memo: string | null;
   } = {
-    amount,
+    amount: Number(amount),
     category_id: categoryId,
     payment_method_id: paymentMethodId,
     account_id: accountId,

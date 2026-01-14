@@ -20,7 +20,7 @@ export default function TransactionModal({ setIsOpen }: TransactionModalProps) {
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const [accounts, setAccounts] = useState<Account[]>([]);
 
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<string>("0");
   const [date, setDate] = useState<string>(() =>
     new Date().toISOString().slice(0, 10)
   );
@@ -108,10 +108,28 @@ export default function TransactionModal({ setIsOpen }: TransactionModalProps) {
         <Switch kind={kind} setKind={setKind} />
 
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
           placeholder="金額"
+          onChange={(e) => {
+            const value = e.target.value;
+
+            // 全消しを許可
+            if (value === "") {
+              setAmount("");
+              return;
+            }
+
+            // 数字以外の文字を除去
+            if (!/^\d+$/.test(value)) {
+              alert("金額は正の整数のみ入力できます。");
+              return;
+            }
+
+            setAmount(value);
+          }}
         />
 
         <input
