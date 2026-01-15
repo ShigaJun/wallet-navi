@@ -12,9 +12,10 @@ export default function App() {
 
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Transactions />} />
+          {/* <Route path="/" element={<Home />} />
           <Route path="/transactions" element={<Transactions />} />
-          <Route path="/accounts" element={<Accounts />} />
+          <Route path="/accounts" element={<Accounts />} /> */}
         </Routes>
       </div>
     </>

@@ -25,7 +25,7 @@ export default function Transactions() {
 
   return (
     <>
-      <h1>Transactions</h1>
+      {/* <h1>Transactions</h1> */}
 
       {/* 入力ボタン */}
       <button onClick={() => setIsOpen(true)}>家計簿入力</button>
