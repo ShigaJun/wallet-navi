@@ -28,7 +28,11 @@ export default function Transactions() {
       {/* <h1>Transactions</h1> */}
 
       {/* 入力ボタン */}
-      <button onClick={() => setIsOpen(true)}>家計簿入力</button>
+      <button onClick={() => {
+          setIsOpen(true),
+          setEditingTransaction(null);
+        }
+      }>家計簿入力</button>
 
       {/* 入力モーダル */}
       {isOpen && <TransactionModal setIsOpen={setIsOpen} editingTransaction={editingTransaction} />}
