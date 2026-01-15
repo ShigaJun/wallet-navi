@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { addTransaction } from "../features/transactions/addTransaction";
+import { addTransaction } from "../features/transactions/api/addTransaction";
 import { getLocalToday } from "../utils/date";
 
 import Switch from "../components/Switch";

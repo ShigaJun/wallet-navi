@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../../lib/supabase";
 
 type AddTransactionParams = {
   amount: string;
@@ -36,7 +36,7 @@ export async function addTransaction({
   }
 
   const { error } = await supabase.from("transactions").insert([payload]);
-  
+
   if (error) {
     throw error;
   }
