@@ -8,6 +8,7 @@ import TransactionList from "../components/TransactionList";
 export default function Transactions() {
   const [isOpen, setIsOpen] = useState(false);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
 
   useEffect(() => {
     const loadTransactions = async () => {
@@ -30,10 +31,30 @@ export default function Transactions() {
       <button onClick={() => setIsOpen(true)}>家計簿入力</button>
 
       {/* 入力モーダル */}
-      {isOpen && <TransactionModal setIsOpen={setIsOpen} />}
+      {isOpen && <TransactionModal setIsOpen={setIsOpen} editingTransaction={editingTransaction} />}
 
       {/* 取引履歴 */}
-      <TransactionList transactions={transactions} />
+      <TransactionList
+        transactions={transactions}
+        onEdit={(tx) => {
+          setEditingTransaction(tx);
+          setIsOpen(true);
+        }}
+        onDelete={async (tx) => {
+          if (confirm("本当に削除しますか？")) {
+            try {
+              await supabase
+                .from("transactions")
+                .delete()
+                .eq("id", tx.id);
+              const updated = await fetchTransactions();
+              setTransactions(updated);
+            } catch (error) {
+              console.error("Error deleting transaction:", error);
+            }
+          }
+        }}
+      />
     </>
   );
 }
