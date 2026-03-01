@@ -1,16 +1,23 @@
-import { useState, useEffect } from "react";
-import { addTransaction } from "../features/transactions/api/addTransaction";
-import { getLocalToday } from "../utils/date";
-import type { Transaction } from "../features/transactions/types";
-import type { Category } from "../features/categories/types";
-import { fetchCategories } from "../features/categories/fetchCategories";
-import type { PaymentMethod } from "../features/payment_methods/types";
-import { fetchPaymentMethods } from "../features/payment_methods/fetchPaymentMethods";
-import type { Account } from "../features/accounts/types";
-import { fetchAccounts } from "../features/accounts/fetchAccounts";
-import { fetchCashPaymentMethod } from "../features/cashPaymentMethod/fetchCashPaymentMethod";
-import Switch from "../components/Switch";
+import { useEffect, useState } from "react";
+
 import { supabase } from "../lib/supabase";
+import { getLocalToday } from "../utils/date";
+
+import { addTransaction } from "../features/transactions/api/addTransaction";
+import type { Transaction } from "../features/transactions/types";
+
+import { fetchCategories } from "../features/categories/fetchCategories";
+import type { Category } from "../features/categories/types";
+
+import { fetchPaymentMethods } from "../features/payment_methods/fetchPaymentMethods";
+import type { PaymentMethod } from "../features/payment_methods/types";
+
+import { fetchAccounts } from "../features/accounts/fetchAccounts";
+import type { Account } from "../features/accounts/types";
+
+import { fetchCashPaymentMethod } from "../features/cashPaymentMethod/fetchCashPaymentMethod";
+
+import Switch from "../components/Switch";
 
 type TransactionModalProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;

@@ -17,7 +17,18 @@ export async function addTransaction({
   accountId,
   memo,
 }: AddTransactionParams) {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    alert("ユーザー情報の取得に失敗しました。");
+    return;
+  }
+
   const payload: {
+    user_id: string;
     amount: number;
     date?: string;
     category_id: string;
@@ -25,6 +36,7 @@ export async function addTransaction({
     account_id: string;
     memo: string | null;
   } = {
+    user_id: user.id,
     amount: Number(amount),
     category_id: categoryId,
     payment_method_id: paymentMethodId,
