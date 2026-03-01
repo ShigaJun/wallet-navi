@@ -3,13 +3,13 @@ import type { Transaction } from "../features/transactions/types";
 import TransactionForm from "./TransactionForm";
 
 type TransactionModalProps = {
+  editingTransaction?: Transaction | null;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  editingTransaction: Transaction | null;
 };
 
 export default function TransactionModal({
-  setIsOpen, 
-  editingTransaction,
+  editingTransaction = null,
+  setIsOpen,
 }: TransactionModalProps) {
   return (
     <> 
@@ -19,6 +19,7 @@ export default function TransactionModal({
 
           <TransactionForm
             editingTransaction={editingTransaction}
+            onSaved={() => setIsOpen(false)}
           />
 
           <button onClick={() => setIsOpen(false)}>キャンセル</button>

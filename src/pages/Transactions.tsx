@@ -40,8 +40,8 @@ export default function Transactions() {
       {/* 入力モーダル */}
       {isOpen && (
         <TransactionModal
-          setIsOpen={setIsOpen}
           editingTransaction={editingTransaction}
+          setIsOpen={setIsOpen}
         />
       )}
 

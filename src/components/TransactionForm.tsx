@@ -21,6 +21,7 @@ import Switch from "./Switch";
 
 type TransactionFormProps = {
   editingTransaction?: Transaction | null;
+  onSaved?: () => void;
 };
 
 type FormState = {
@@ -35,12 +36,13 @@ type FormState = {
 
 export default function TransactionForm({
   editingTransaction = null,
+  onSaved,
 }: TransactionFormProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const [accounts, setAccounts] = useState<Account[]>([]);
 
-  const [form, setForm] = useState<FormState>({
+  const createInitialForm = (): FormState => ({
     kind: "expense",
     amount: "0",
     date: getLocalToday(),
@@ -49,6 +51,8 @@ export default function TransactionForm({
     accountId: "",
     memo: "",
   });
+  
+  const [form, setForm] = useState<FormState>(createInitialForm());
 
   const [cashPaymentMethodId, setCashPaymentMethodId] = useState<string | null>(
     null,
@@ -149,6 +153,10 @@ export default function TransactionForm({
           memo: form.memo,
         });
       }
+
+      setForm(createInitialForm());
+      onSaved?.();
+
     } catch (error) {
       console.error(error);
       alert(
