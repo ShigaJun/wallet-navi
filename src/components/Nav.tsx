@@ -5,11 +5,11 @@ export default function Nav() {
     <nav>
       <Link to="/">ホーム</Link>
       {" | "}
-      <Link to="/accounts">家計簿</Link>
+      {/* <Link to="/accounts">家計簿</Link> */}
       {" | "}
-      <Link to="/transactions">入力</Link>
+      <Link to="/transactions">家計簿</Link>
       {" | "}
-      <Link to="/menu">メニュー</Link>
+      {/* <Link to="/menu">メニュー</Link> */}
     </nav>
   );
 }
