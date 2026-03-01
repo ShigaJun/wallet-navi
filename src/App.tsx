@@ -36,7 +36,12 @@ export default function App() {
   if (loading) return null;
 
   if (!session) {
-    return <Auth />;
+    return (
+      <>
+        <Header />
+        <Auth />
+      </>
+    );
   }
 
   return (
@@ -45,10 +50,9 @@ export default function App() {
 
       <div>
         <Routes>
-          <Route path="/" element={<Transactions />} />
-          {/* <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/transactions" element={<Transactions />} />
-          <Route path="/accounts" element={<Accounts />} /> */}
+          <Route path="/accounts" element={<Accounts />} />
         </Routes>
       </div>
     </>
